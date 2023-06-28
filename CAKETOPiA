@@ -1,0 +1,158 @@
+import java.util.Arrays;
+import java.util.Scanner;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+
+public class CakeShop {
+    public static void main(String[] args) {
+        try (Scanner scanner = new Scanner(System.in)) {
+            String[] arrayName = {"Ayen", "Kim", "Dwayne"};
+            String[] itemCode = {"AS", "AL", "AD", "BS", "BL", "BD", "CS", "CL", "CD", "DS", "DL", "DD", "ES", "EL", "ED", "FS", "FL", "FD", "GS", "GL", "GD", "HS", "HL", "HD", "IS", "IL", "ID", "JS", "JL", "JD"};
+            String[] itemName = {"Short  Red Velvety  Cheesecake", "Long  Red  Velvety  Cheesecake", "Double  Red Velvety Cheesecake", "Short  German  Chocolate  Cake", "Long  German   Chocolate  Cake", "Double  German  Chocolate Cake", "Short  Salted   Caramel   Cake", "Long   Salted   Caramel   Cake", "Double  Salted   Caramel  Cake", "Short  Vanilla Madagascar Cake", "Long Vanilla  Madagascar  Cake", "Double Vanilla Madagascar Cake", "Short   Ferrero  Rocher   Cake", "Long   Ferrero   Rocher   Cake", "Double  Ferrero  Rocher   Cake", "Short   Strawberry   Shortcake", "Long    Strawberry   Shortcake", "Double   Strawberry  Shortcake", "Short   Peanut   Butter   Cake", "Long   Peanut   Butter    Cake", "Double  Peanut   Butter   Cake", "Short     Midnight    Cravings", "Long     Midnight     Cravings", "Double    Midnight    Cravings", "Short    Yellow   Lemon   Cake", "Long    Yellow    Lemon   Cake", "Double   Yellow   Lemon   Cake", "Short     Butterscotch    Cake", "Long     Butterscotch     Cake", "Double    Butterscotch    Cake"};
+            int[] itemPrice = {40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70, 40, 55, 70};
+            int[] orderQuantity = new int[30];
+            int[] totalItemPrice = new int[30];
+            String customerName, customerItemCode;
+            int quantity, itemSold = 0;
+            char addOrder, buyAgain, isCustomerSenCtzn;
+            float vat = 0.12f, discountSC = 0.2f, subtotal = 0, vatAmount, discAmount, custMoney, totalAmDue, custChange;
+            System.out.print("Hello, I'm " + Arrays.toString(arrayName) + " and I'm your Cakeologist for today. What is your name? ");
+            customerName = scanner.nextLine();
+            System.out.print("\nThat's a nice name! Are you a senior citizen? (Y or N): ");
+            isCustomerSenCtzn = scanner.next().charAt(0);
+            do {
+                System.out.println(                                                                                                                );
+                System.out.println(                                  "Hi, How are you? Welcome To CAKETOPiA"                                     );
+                System.out.println(                                                                                                                );
+                System.out.println("Here's our menu. Choose whatever flavor and size you like!");
+                System.out.println("============================================================================================================");
+                System.out.println("=                                            ~ CAKETOPiA MENU ~                                            =");
+                System.out.println("=                                                                                                          =");
+                System.out.println("=                                              S                      L                      D             =");
+                System.out.println("=        FLAVORS                         SHORT (6 inches)       LONG (8 inches)       DOUBLE (10 inches)   =");
+                System.out.println("= A. Red Velvety Cheesecake                Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= B. German Chocolate Cake                 Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= C. Salted Caramel Cake                   Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= D. Vanilla Madagascar Cake               Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= E. Ferrero Rocher Cake                   Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= F. Strawberry Shortcake                  Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= G. Peanut Butter Cake                    Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= H. Midnight Cravings                     Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= I. Yellow Lemon Cake                     Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("= J. Butterscotch Cake                     Php 40.00              Php 55.00              Php 70.00         =");
+                System.out.println("============================================================================================================");
+                
+                do {
+                    boolean isCustomerInputCorrect = false;
+                    int indexMenu = 0;
+                    
+                    System.out.print("Hi " + customerName + "! " + "May I take your order? (Example: AS = Short Red Velvety Cheesecake) ");
+                    do {
+                        System.out.print("Item Code: ");
+                        customerItemCode = scanner.next();
+                        
+                        for (int i = 0; i < 30; i++) {
+                            if (customerItemCode.equals(itemCode[i])) {
+                                isCustomerInputCorrect = true;
+                                indexMenu = i;
+                                break;
+                            } else if (i == 29) {
+                                System.out.println("Invalid input. Please try again.");
+                                isCustomerInputCorrect = false;
+                            }
+                        }
+                    } while (!isCustomerInputCorrect);
+                    
+                    System.out.print("Quantity: ");
+                    quantity = scanner.nextInt();
+                    orderQuantity[indexMenu] += quantity;
+                    totalItemPrice[indexMenu] = itemPrice[indexMenu] * orderQuantity[indexMenu];
+                    
+                    System.out.print("Would " + customerName + " like to add another order? (Y or N): ");
+                    addOrder = scanner.next().charAt(0);
+                    
+                } while (addOrder == 'Y' || addOrder == 'y');
+                
+                for (int i = 0; i < 30; i++) {
+                    subtotal += totalItemPrice[i];
+                    itemSold += orderQuantity[i];
+                }
+                
+                System.out.print("How much was " + customerName + "'s money?: ");
+                custMoney = scanner.nextFloat();
+                System.out.println("Here's " + customerName + "'s receipt:");
+                
+                if (isCustomerSenCtzn == 'Y' || isCustomerSenCtzn == 'y') {
+                    discAmount = subtotal * discountSC;
+                    vatAmount = subtotal * vat;
+                    totalAmDue = subtotal - discAmount;
+                    custChange = custMoney - totalAmDue;
+                } else {
+                    discAmount = 0;
+                    vatAmount = subtotal * vat;
+                    totalAmDue = subtotal;
+                    custChange = custMoney - totalAmDue;
+                }
+                
+                System.out.println("=====================================================");
+                System.out.println("                   ~ CAKETOPiA ~                     ");
+                System.out.println("             Best luxury cakes in town.              ");
+                System.out.println("                   +639212544466                     ");
+                System.out.println("               Tenejero Capitol Tocwn                 ");
+                System.out.println("                   Balanga City                      ");
+                System.out.println("                        ====                         ");
+                System.out.println("  QTY.   ITEM(S)                              PRICE");
+                
+                for (int i = 0; i < 30; i++) {
+                    if (orderQuantity[i] > 0) {
+                        System.out.println("   " + orderQuantity[i] + "   " + itemName[i] + ".........Php" + totalItemPrice[i] + "  ");
+                    }
+                }
+                
+                System.out.println("                                                               ");
+                System.out.println("                             SUBTOTAL       Php" + subtotal       );
+                System.out.println("                             VAT(12%)       Php" + vatAmount      );
+                System.out.println("                        DISCOUNT(20%)       Php" + discAmount     );
+                System.out.println("                     TOTAL AMOUNT DUE       Php" + totalAmDue     );
+                System.out.println("                                 CASH       Php" + custMoney      );
+                System.out.println("                               CHANGE       Php" + custChange + "");
+                System.out.println("              # ITEM(S) SOLD: " + itemSold);
+                System.out.println("          THANK YOU FOR CHOOSING OUR STORE.            ");
+                System.out.println("       ~CAKETOPiA~             {}       ~CAKETOPiA~    ");
+                System.out.println("  {}  :===========:   *        ||     :=============:  ");
+                System.out.println("  ||  :~~~~~~~~~~~:   |   :==========::~~~~~~~~~~~~~:  ");
+                System.out.println(":====::o=o=o=o=o=o::=====::-~-~-~-~-~::=:=:=:=:=:=:=:  ");
+                System.out.println(":~-~-::~~~~~~~~~~~::o~o~o::~-~-~-~-~-::~~~~~~~~~~~~~:  ");
+                System.out.println("=====================================================  ");
+                
+                System.out.print("\nWould " + customerName + " like to purchase again? (Y or N): ");
+                buyAgain = scanner.next().charAt(0);
+                
+                for (int i = 0; i < 30; i++) {
+                    orderQuantity[i] = 0;
+                    subtotal = 0;
+                    totalItemPrice[i] = 0;
+                    itemSold = 0;
+                }
+       JFrame frame = new JFrame("Button Example"); // Create a frame
+       
+        JButton button = new JButton("Purchase"); // Create a button
+        frame.getContentPane().add(button); // Add the button to the frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
+        frame.setVisible(true);
+    
+       
+                if (buyAgain == 'N' || buyAgain == 'n') {
+                    System.out.println("" + customerName + "'s purchase has been made.");
+                    break;
+                }
+            } while (buyAgain == 'Y' || buyAgain == 'y');
+            
+            
+            
+        }
+    }
+}
+
